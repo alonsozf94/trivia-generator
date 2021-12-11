@@ -63,8 +63,8 @@ class CliviaGenerator
       end
 
       # Waits for input and checks answer
-      print "> "
-      answer = gets.chomp
+      answer = gets_option("", ["1","2","3","4"], false) if answer_options.length == 4
+      answer = gets_option("", ["1","2"], false) if answer_options.length == 2
       if answer_options[answer.to_i - 1] == question[:correct_answer]
         @score_registration[:score] += 10
         puts "Correct answer!"
@@ -93,7 +93,7 @@ class CliviaGenerator
 
   def load_questions
     # Requests for trivia questions and stores data
-    response = HTTParty.get("https://opentdb.com/api.php?amount=2")
+    response = HTTParty.get("https://opentdb.com/api.php?amount=10")
     raise(HTTParty::ResponseError, response) unless response.success?
     @question_array = JSON.parse(response.body, symbolize_names: true)[:results]
   end

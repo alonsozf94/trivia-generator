@@ -31,10 +31,10 @@ module Requester
     # prompt the user to give the score a name if there is no name given, set it as Anonymous
   end
 
-  def gets_option(prompt, options = [])
+  def gets_option(prompt, options = [], extra = true)
     input = ""
     loop do
-      puts "#{prompt}: "
+      puts "#{prompt}: " if extra
       print "> "
       input = gets.chomp
       break unless input.empty? || !options.include?(input)
